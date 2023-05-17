@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+  }
+
+.agregar {
+    margin: 5px 0px 5px 0px;
+}
+
+.agregar button {
+    width: 35px;
+}
+
+.modal-form{
+    padding: 1rem 0 1rem 0;
+}
+
+.full-width-input{
+    width: 99%;
+}
+
+mat-form-field{
+    display: block;
+}

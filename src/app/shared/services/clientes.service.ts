@@ -36,4 +36,21 @@ export class ClientesService {
     console.log(url);
     return this.http.delete<Cliente>(`${environment.API_URL}/cliente/${cliente.cedula}`).pipe(catchError(this.handlerError));
     }
+
+    clienteSeleccionado: Cliente = {
+      cedula: '',
+      tipoCliente: 0,
+      descMax: 0,
+      foto: '',
+      estado: false,
+      nombre: '',
+      apellido1: '',
+      apellido2: '',
+      fechaNac: new Date(),
+      genero: 0
+    };
+  
+    cargarCliente(cliente: Cliente) {
+      this.clienteSeleccionado = cliente;
+    }
 }

@@ -40,12 +40,13 @@
         <mat-form-field appearance="fill" class="full-width-input">
           <mat-label>Tipo de Cliente</mat-label>
           <select matNativeControl formControlName="tipoCliente">
-            <option value="normal" disabled>Selecciona una opción</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option *ngFor="let item of dataSource" value="{{item.id}}">{{ item.nombre }}</option>
           </select>
         </mat-form-field>
+
+        <select>
+          
+        </select>
 
         <mat-form-field appearance="fill" class="full-width-input">
           <mat-label>Descuento Máximo</mat-label>

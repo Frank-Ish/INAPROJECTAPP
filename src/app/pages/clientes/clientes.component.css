@@ -1,4 +1,15 @@
 table {
     width: 100%;
-  }
-  
+}
+.text-center {
+    text-align: center;
+}
+
+.nombre-sitio span {
+  color: rgb(95, 64, 91);
+}
+
+.espacio {
+  padding: 1rem;
+  margin: 1rem;
+}

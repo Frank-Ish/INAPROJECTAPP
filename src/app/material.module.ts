@@ -1,25 +1,19 @@
-import { NgModule } from '@angular/core';
-
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatCardModule } from '@angular/material/card';
-
 import { MatMenuModule } from '@angular/material/menu';
-
-import { MatToolbarModule } from '@angular/material/toolbar';
-
 import { MatIconModule } from '@angular/material/icon';
-
 import { MatGridListModule } from '@angular/material/grid-list';
-
 import { MatPaginatorModule } from '@angular/material/paginator';
-
 import { MatTableModule } from '@angular/material/table';
-
 import { MatDialogModule } from '@angular/material/dialog'
-
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
+import { NgModule } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -35,8 +29,10 @@ MatTableModule,
 MatPaginatorModule,
 MatDialogModule,
 MatFormFieldModule,
+MatSelectModule,
+MatDatepickerModule,
+MatNativeDateModule,
 MatInputModule
-
 ];
 
 

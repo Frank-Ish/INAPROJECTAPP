@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ClientesService } from 'src/app/shared/services/clientes.service';
 import { ClientesAdminComponent } from './clientes-admin/clientes-admin.component';
 import { Cliente } from '../../shared/models/cliente';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientes',
@@ -14,7 +15,7 @@ export class ClientesComponent {
   displayedColumns: string[] = ['cedula', 'nombre', 'apellido1', 'apellido2', 'acciones'];
   dataSource = new MatTableDataSource();
 
-  constructor(private clienteServ: ClientesService, private dialog:MatDialog){
+  constructor(private clienteServ: ClientesService, private dialog:MatDialog, private msg: ToastrService){
 
   }
 
@@ -35,7 +36,7 @@ export class ClientesComponent {
   openModal(cliente?:Cliente):void {
     let dialogClie;
     if(!cliente){
-      console.log("Nuebo");
+      console.log("Nuevo");
       dialogClie = this.dialog.open(ClientesAdminComponent, {
         height: '900px',
         width: '700px'
@@ -52,15 +53,16 @@ export class ClientesComponent {
     dialogClie.afterClosed().subscribe((result)=>{
       this.cargarLista();
     }, (err)=>{
-      console.log(err);
+      this.msg.error(err);
     })
   }
 
   eliminar(cliente:Cliente){
     this.clienteServ.eliminar(cliente).subscribe((response) =>{
+      this.msg.success('El cliente fue eliminado.');
       this.cargarLista();
     },(err) =>{
-      console.log(err);
+      this.msg.error(err);
     })
   }
 

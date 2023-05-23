@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-card-title class="text-center">Detalle Factura</mat-card-title>
+  <form>
+    <mat-card-content >
+      <mat-card-title>Datos del Cliente</mat-card-title>
+      <mat-form-field appearance="fill" class="espacio">
+        <mat-label>Cédula</mat-label>
+        <input matInput placeholder="Cédula" [(ngModel)]="clienteService.clienteSeleccionado.cedula">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="espacio">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Nombre" [(ngModel)]="clienteService.clienteSeleccionado.nombre">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="espacio">
+        <mat-label>Primer Apellido</mat-label>
+        <input matInput placeholder="Primer Apellido" [(ngModel)]="clienteService.clienteSeleccionado.apellido1">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="espacio">
+        <mat-label>Segundo Apellido</mat-label>
+        <input matInput placeholder="Segundo Apellido" [(ngModel)]="clienteService.clienteSeleccionado.apellido2">
+      </mat-form-field>
+      <button mat-raised-button color="accent" (click)="openModal()" type="button">Agregar Cliente</button>
+    </mat-card-content>
+</form>
+<form>
+    <mat-card-content>
+      <mat-card-title>Datos del Producto</mat-card-title>
+      <mat-form-field class="espacio">
+        <mat-label>Código</mat-label>
+        <input matInput placeholder="Código">
+      </mat-form-field>
+      <mat-form-field class="espacio">
+        <mat-label>Producto</mat-label>
+        <input matInput placeholder="Nombre del Producto">
+      </mat-form-field>
+      <mat-form-field class="espacio">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" placeholder="Cantidad">
+      </mat-form-field>
+      <mat-form-field class="espacio">
+        <mat-label>Precio</mat-label>
+        <input matInput type="number" placeholder="Precio Unitario">
+      </mat-form-field>
+      <button mat-raised-button color="accent">Agregar Producto</button>
+    </mat-card-content>
+  </form>
+</mat-card>
+

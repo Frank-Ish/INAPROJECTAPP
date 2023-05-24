@@ -100,6 +100,7 @@ export class FacturaComponent implements OnInit {
     console.log(nuevaFactura);
     this.faturaService.guardar(nuevaFactura).subscribe((resp)=>{
       this.msg.success('La factura fue registrada correctamente.');
+      this.limpiarCampos();
       },
       (err) => {
         this.msg.error(err);
@@ -112,5 +113,20 @@ export class FacturaComponent implements OnInit {
     const precio = this.productoService.productoSeleccionado.precioVenta;
     const iva = 0.13;
     this.total = cantidad * precio * (1 + iva);
+  }
+
+  limpiarCampos() {
+    this.clienteService.clienteSeleccionado.cedula = '';
+    this.clienteService.clienteSeleccionado.nombre = '';
+    this.clienteService.clienteSeleccionado.apellido1 = '';
+    this.clienteService.clienteSeleccionado.apellido2 = '';
+    this.productoService.productoSeleccionado.idProducto = 0;
+    this.productoService.productoSeleccionado.nombre = '';
+    this.productoService.productoSeleccionado.precioVenta = 0;
+    this.productoService.productoSeleccionado.stock = 0;
+    this.tipoPagoService.tipoPagoSeleccionado.idTipoPago = 0;
+    this.tipoPagoService.tipoPagoSeleccionado.nombre = '';
+    this.tipoVentaService.tipoVentaSeleccionada.idTipoVenta = 0;
+    this.tipoVentaService.tipoVentaSeleccionada.nombre = '';
   }
 }

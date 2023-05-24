@@ -2,9 +2,9 @@
 
   
     <!-- Position Column -->
-    <ng-container matColumnDef="cedula">
-      <th mat-header-cell *matHeaderCellDef> Cedula </th>
-      <td mat-cell *matCellDef="let element"> {{element.cedula}} </td>
+    <ng-container matColumnDef="idProducto">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let element"> {{element.idProducto}} </td>
     </ng-container>
   
     <!-- Name Column -->
@@ -14,20 +14,20 @@
     </ng-container>
   
     <!-- Weight Column -->
-    <ng-container matColumnDef="apellido1">
-      <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
-      <td mat-cell *matCellDef="let element"> {{element.apellido1}} </td>
+    <ng-container matColumnDef="precioVenta">
+      <th mat-header-cell *matHeaderCellDef> Precio de Venta </th>
+      <td mat-cell *matCellDef="let element"> {{element.precioVenta}} </td>
     </ng-container>
   
     <!-- Symbol Column -->
-    <ng-container matColumnDef="apellido2">
+    <ng-container matColumnDef="stock">
       <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
-      <td mat-cell *matCellDef="let element"> {{element.apellido2}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
     </ng-container>
     <ng-container matColumnDef="acciones">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element"> 
-        <button mat-button color="accent" (click)="cargarCliente(element)" [mat-dialog-close]="true">Agregar</button> 
+        <button mat-button color="accent" (click)="cargarProducto(element)" [mat-dialog-close]="true">Agregar</button> 
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

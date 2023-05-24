@@ -30,6 +30,7 @@ export class ClientesAdminComponent {
     console.log(this.cargarCombo())
     if(this.cliente){
       this.titulo = 'Modificar Cliente.'
+      this.cargarForm();
     }
     else{
       this.titulo = 'Crear Cliente.'

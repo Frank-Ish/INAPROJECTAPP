@@ -6,13 +6,19 @@ import { MaterialModule } from 'src/app/material.module';
 import { FacturaRoutingModule } from './factura-routing.module';
 import { MostrarClientesComponent } from './mostrar-clientes/mostrar-clientes.component';
 import { FormsModule } from '@angular/forms';
+import { MostrarProductoComponent } from './mostrar-producto/mostrar-producto.component';
+import { MostrarTipoPagoComponent } from './mostrar-tipo-pago/mostrar-tipo-pago.component';
+import { MostrarTipoVentaComponent } from './mostrar-tipo-venta/mostrar-tipo-venta.component';
 
 
 @NgModule({
   declarations: [
     ModificarDetalleComponent,
     FacturaComponent,
-    MostrarClientesComponent
+    MostrarClientesComponent,
+    MostrarProductoComponent,
+    MostrarTipoPagoComponent,
+    MostrarTipoVentaComponent
   ],
   imports: [
     CommonModule,

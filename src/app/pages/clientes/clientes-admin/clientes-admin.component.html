@@ -58,6 +58,6 @@
             <input matInput type="text" formControlName="foto">
         </mat-form-field>
         
-        <button mat-button color="accent" type="submit" (click)="guardar()" [mat-dialog-close]="true" [disabled]="!this.clienteForm.baseForm.valid">Guardar</button> 
+        <button mat-button color="accent" type="submit" [mat-dialog-close]="true" (click)="guardar()" [disabled]="!this.clienteForm.baseForm.valid">Guardar</button> 
         <button mat-button color="warn" [mat-dialog-close]="true" >Salir</button>      </form> 
 </div>

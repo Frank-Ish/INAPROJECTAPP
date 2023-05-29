@@ -22,4 +22,18 @@ export class TipoCLienteService {
     let errorMensaje = 'Error desconocido.'
     return throwError(errorMensaje);
   }
+
+  guardar(tipoCliente:TipoCliente):Observable<TipoCliente>{
+    return this.http.post<TipoCliente>(`${environment.API_URL}/tipoCliente`,tipoCliente).pipe(catchError(this.handlerError));
+  }
+
+  modificar(tipoCliente:TipoCliente):Observable<TipoCliente>{
+    return this.http.patch<TipoCliente>(`${environment.API_URL}/tipoCliente/${tipoCliente.id}`, tipoCliente).pipe(catchError(this.handlerError));
+  }
+
+  eliminar(tipoCliente:TipoCliente):Observable<TipoCliente>{
+    const url = `${environment.API_URL}/tipoCliente/${tipoCliente.id}`;
+    console.log(url);
+    return this.http.delete<TipoCliente>(`${environment.API_URL}/tipoCliente/${tipoCliente.id}`).pipe(catchError(this.handlerError));
+    }
 }

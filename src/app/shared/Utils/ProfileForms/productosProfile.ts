@@ -10,7 +10,8 @@ export class ProductosForms {
             idProducto: [1, [Validators.required]], 
             nombre: ['', [Validators.required]], 
             precioVenta: [1, [Validators.required]],
-            stock: [1, [Validators.required]]  
+            stock: [1, [Validators.required]],
+            cantidad: [1, [Validators.required]]   
         });
     } 
 

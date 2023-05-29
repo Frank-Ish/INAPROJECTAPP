@@ -25,6 +25,12 @@ import { MostrarTipoVentaComponent } from './mostrar-tipo-venta/mostrar-tipo-ven
     FacturaRoutingModule,
     MaterialModule,
     FormsModule
+  ],
+  exports: [
+    MostrarClientesComponent,
+    MostrarProductoComponent,
+    MostrarTipoPagoComponent,
+    MostrarTipoVentaComponent
   ]
 })
 export class FacturaModule { }

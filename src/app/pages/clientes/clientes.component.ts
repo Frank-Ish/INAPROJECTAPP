@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ClientesComponent {
   displayedColumns: string[] = ['cedula', 'nombre', 'apellido1', 'apellido2', 'acciones'];
   dataSource = new MatTableDataSource();
+  clienteSelec: Cliente;
 
   constructor(private clienteServ: ClientesService, private dialog:MatDialog, private msg: ToastrService){
 
@@ -38,19 +39,20 @@ export class ClientesComponent {
     if(!cliente){
       console.log("Nuevo");
       dialogClie = this.dialog.open(ClientesAdminComponent, {
-        height: '900px',
-        width: '700px'
+        maxHeight: '900px',
+        width: '700px',
       })
     }
     else {
       console.log("Modificar");
       dialogClie = this.dialog.open(ClientesAdminComponent, {
-        height: '900px',
+        maxHeight: '900px',
         width: '700px',
-        data: {cliente}
+        data: {cliente},
       });
     }
-    dialogClie.afterClosed().subscribe((result)=>{
+    dialogClie.afterClosed().subscribe(()=>{
+      //this.clienteSelec = result;
       this.cargarLista();
     }, (err)=>{
       this.msg.error(err);

@@ -19,6 +19,8 @@ import { TipoVentaService } from 'src/app/shared/services/tipo-venta.service';
 import { TipoVentaForms } from 'src/app/shared/Utils/ProfileForms/tipoVentaProfile';
 import { Factura } from 'src/app/shared/models/factura';
 import { FacturasService } from 'src/app/shared/services/facturas.service';
+import { Producto } from 'src/app/shared/models/producto';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-factura',
@@ -29,13 +31,15 @@ export class FacturaComponent implements OnInit {
   displayedColumns: string[] = ['cedula', 'nombre', 'apellido1', 'apellido2'];
   listaClientes = new MatTableDataSource();
   total = 0;
+  productosSeleccionados: Producto[] = [];
   
   constructor(public clienteService: ClientesService, public clienteForm:ClientesForms,public productoService: ProductosService, public productoForm: ProductosForms, public tipoPagoService: TipoPagosService, public tipoPagoForm: TipoPagoForms, public tipoVentaService: TipoVentaService, public tipoVentaForm: TipoVentaForms, public faturaService: FacturasService, private dialog:MatDialog, private msg: ToastrService){
 
   }
 
+  //
   ngOnInit():void{
-    this.calcularTotal();
+    
   }
 
 
@@ -43,13 +47,23 @@ export class FacturaComponent implements OnInit {
     let dialogClie;
 
     dialogClie = this.dialog.open(MostrarClientesComponent, {
-      height: '900px',
-      width: '700px',
+      maxHeight: '900px',
+      maxWidth: '700px',
       data: {cliente}
     })
   }
 
-  openModal2(cliente?:Cliente):void {
+
+  openModal2(cliente?: Cliente): void {
+    let dialogClie;
+  
+    dialogClie = this.dialog.open(MostrarProductoComponent, {
+      maxHeight: '900px',
+      maxWidth: '700px',
+      data: { cliente, productosSeleccionados: this.productosSeleccionados }
+    });
+  }
+  /*openModal2(cliente?:Cliente):void {
     let dialogClie;
 
     dialogClie = this.dialog.open(MostrarProductoComponent, {
@@ -57,13 +71,13 @@ export class FacturaComponent implements OnInit {
       width: '700px',
       data: {cliente}
     })
-  }
+  }*/
 
   openModal3(tipoPago?:TipoPago):void {
     let dialogClie;
 
     dialogClie = this.dialog.open(MostrarTipoPagoComponent, {
-      height: '500px',
+      maxHeight: '500px',
       width: '400px',
       data: {tipoPago}
     })
@@ -73,13 +87,39 @@ export class FacturaComponent implements OnInit {
     let dialogClie;
 
     dialogClie = this.dialog.open(MostrarTipoVentaComponent, {
-      height: '500px',
-      width: '400px',
+      maxHeight: '500px',
+      maxWidth: '400px',
       data: {tipoVenta}
     })
   }
 
+
   guardar() {
+    const nuevaFactura: Factura = {
+      idCliente: this.clienteService.clienteSeleccionado.cedula,
+      tipoVenta: this.tipoVentaService.tipoVentaSeleccionada.idTipoVenta,
+      tipoPago: this.tipoPagoService.tipoPagoSeleccionado.idTipoPago,
+      fecha: new Date(),
+      estado: true,
+      tbDetalleFacturas: this.productosSeleccionados.map(producto => ({
+        idProducto: producto.idProducto,
+        cantidad: producto.stock,
+        precio: producto.precioVenta * producto.stock * (1 + 0.13),
+        estado: true
+      }))
+    };
+    console.log(nuevaFactura);
+    this.faturaService.guardar(nuevaFactura).subscribe((resp)=>{
+      this.msg.success('La factura fue registrada correctamente.');
+      this.actualizar();
+      },
+      (err) => {
+        this.msg.error(err);
+      }
+    );
+  }
+  
+  /*guardar() {
     
     const nuevaFactura: Factura = {
       idCliente: this.clienteService.clienteSeleccionado.cedula,
@@ -95,38 +135,45 @@ export class FacturaComponent implements OnInit {
           estado: true
         }
       ]
-    };
+    };*/
     
-    console.log(nuevaFactura);
-    this.faturaService.guardar(nuevaFactura).subscribe((resp)=>{
-      this.msg.success('La factura fue registrada correctamente.');
-      this.limpiarCampos();
-      },
-      (err) => {
-        this.msg.error(err);
-      }
-    );
+
+  
+  
+  calcularSubtotal() {
+    return this.productosSeleccionados.reduce((subtotal, producto) => 
+    subtotal + (producto.stock * producto.precioVenta), 0);
+  }
+  
+  calcularIVA() {
+    return this.calcularSubtotal() * 0.13;
   }
   
   calcularTotal() {
-    const cantidad = this.productoService.productoSeleccionado.stock;
-    const precio = this.productoService.productoSeleccionado.precioVenta;
-    const iva = 0.13;
-    this.total = cantidad * precio * (1 + iva);
+    return this.calcularSubtotal() * 1.13;
   }
 
   limpiarCampos() {
-    this.clienteService.clienteSeleccionado.cedula = '';
-    this.clienteService.clienteSeleccionado.nombre = '';
-    this.clienteService.clienteSeleccionado.apellido1 = '';
-    this.clienteService.clienteSeleccionado.apellido2 = '';
-    this.productoService.productoSeleccionado.idProducto = 0;
-    this.productoService.productoSeleccionado.nombre = '';
-    this.productoService.productoSeleccionado.precioVenta = 0;
-    this.productoService.productoSeleccionado.stock = 0;
-    this.tipoPagoService.tipoPagoSeleccionado.idTipoPago = 0;
-    this.tipoPagoService.tipoPagoSeleccionado.nombre = '';
-    this.tipoVentaService.tipoVentaSeleccionada.idTipoVenta = 0;
-    this.tipoVentaService.tipoVentaSeleccionada.nombre = '';
+    const nuevaFactura: Factura = {
+      idCliente: '',
+      tipoVenta: 0,
+      tipoPago: 0,
+      fecha: new Date(),
+      estado: true,
+      tbDetalleFacturas: this.productosSeleccionados.map(producto => ({
+        idProducto: 0,
+        cantidad: 0,
+        precio: producto.precioVenta * producto.stock * (1 + 0.13),
+        estado: true
+      }))
+    };
   }
+
+  actualizar() {
+    setTimeout(() => {
+      location.reload();
+    }, 3000);
+  }
+  
+  
 }

@@ -1,29 +1,36 @@
 <table mat-table [dataSource]= "dataSource" class="mat-elevation-z8">
 
   
-    <!-- Position Column -->
+    <!-- Cedula -->
     <ng-container matColumnDef="cedula">
       <th mat-header-cell *matHeaderCellDef> Cedula </th>
       <td mat-cell *matCellDef="let element"> {{element.cedula}} </td>
     </ng-container>
   
-    <!-- Name Column -->
+    <!-- Nombre -->
     <ng-container matColumnDef="nombre">
       <th mat-header-cell *matHeaderCellDef> Nombre </th>
       <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
     </ng-container>
   
-    <!-- Weight Column -->
+    <!-- Apellido1 -->
     <ng-container matColumnDef="apellido1">
       <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
       <td mat-cell *matCellDef="let element"> {{element.apellido1}} </td>
     </ng-container>
   
-    <!-- Symbol Column -->
+    <!-- Apellido2 -->
     <ng-container matColumnDef="apellido2">
       <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
       <td mat-cell *matCellDef="let element"> {{element.apellido2}} </td>
     </ng-container>
+
+    <!-- Descuento -->
+    <ng-container matColumnDef="descMax">
+      <th mat-header-cell *matHeaderCellDef> Descuento </th>
+      <td mat-cell *matCellDef="let element"> {{element.descMax}} </td>
+    </ng-container>
+    
     <ng-container matColumnDef="acciones">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element"> 

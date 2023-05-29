@@ -10,6 +10,7 @@ import { TipoClientesForms } from 'src/app/shared/Utils/ProfileForms/tipoCliente
 import { MatTableDataSource } from '@angular/material/table';
 import { TipoCLienteService } from 'src/app/shared/services/tipo-cliente.service';
 
+
 @Component({
   selector: 'app-clientes-admin',
   templateUrl: './clientes-admin.component.html',
@@ -18,23 +19,27 @@ import { TipoCLienteService } from 'src/app/shared/services/tipo-cliente.service
 export class ClientesAdminComponent {
   titulo:string = 'Crear Cliente.'
   dataSource: TipoCliente[];
+  formDirective: any;
   
-  constructor(@Inject(MAT_DIALOG_DATA) private cliente: {cliente: Cliente}, public clienteForm:ClientesForms, private clienteServ:ClientesService, private msg: ToastrService,
-  @Inject(MAT_DIALOG_DATA) private tipoCliente: {tipoCliente:TipoCliente}, public tipoClientesForm:TipoClientesForms, private tipoClienteService:TipoCLienteService
+  constructor(@Inject(MAT_DIALOG_DATA) private cliente: {cliente: Cliente}, 
+  public clienteForm:ClientesForms, 
+  private clienteServ:ClientesService, 
+  private msg: ToastrService,
+  @Inject(MAT_DIALOG_DATA) private tipoCliente: {tipoCliente:TipoCliente},
+  public tipoClientesForm:TipoClientesForms,
+  private tipoClienteService:TipoCLienteService
   ){}
-
-
 
   ngOnInit(){
     this.cargarCombo()
-    console.log(this.cargarCombo())
     if(this.cliente){
-      this.titulo = 'Modificar Cliente.'
       this.cargarForm();
+      this.titulo = 'Modificar Cliente';
     }
     else{
-      this.titulo = 'Crear Cliente.'
-    }
+      this.titulo = 'Crear Cliente';
+      this.resetForm();
+    } 
   }
 
   cargarForm(){
@@ -64,13 +69,12 @@ export class ClientesAdminComponent {
     });
   }
 
-
   guardar(){
-
     if(!this.cliente){
-      console.log(this.clienteForm.baseForm.valid)
+      console.log(this.clienteForm.baseForm.value)
       if(this.clienteForm.baseForm.valid){
-        this.clienteServ.guardar(this.clienteForm.baseForm.value).subscribe((resp) =>{
+        console.log(this.clienteForm.baseForm.value)
+        this.clienteServ.guardar(this.clienteForm.baseForm.value).subscribe(() =>{
           this.msg.success('El cliente se guardo correctamente.');
         },(err)=>{
           this.msg.error(err);
@@ -88,6 +92,21 @@ export class ClientesAdminComponent {
       }
     }
 
+  }
+
+  resetForm(): void {
+    this.clienteForm.baseForm.reset({
+      cedula: '',
+      tipoCliente: 1,
+      descMax: '',
+      foto: '',
+      estado: true,
+      nombre: '',
+      apellido1: '',
+      apellido2: '',
+      fechaNac: '',
+      genero: 1
+    });
   }
 }
 

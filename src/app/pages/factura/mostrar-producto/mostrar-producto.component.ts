@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductosService } from '../../../shared/services/productos.service';
 import { ProductosComponent } from '../../productos/productos.component';
 import { Producto } from 'src/app/shared/models/producto';
 import { ProductosForms } from '../../../shared/Utils/ProfileForms/productosProfile';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-mostrar-producto',
@@ -13,8 +14,9 @@ import { ProductosForms } from '../../../shared/Utils/ProfileForms/productosProf
 export class MostrarProductoComponent {
   displayedColumns: string[] = ['idProducto', 'nombre', 'precioVenta', 'stock', 'acciones'];
   dataSource = new MatTableDataSource();
+  @Output() productoSeleccionado = new EventEmitter<Producto>();
 
-  constructor(private productoService: ProductosService, public productoForm: ProductosForms){
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private productoService: ProductosService, public productoForm: ProductosForms){
 
   }
 
@@ -32,7 +34,17 @@ export class MostrarProductoComponent {
     });
   }
 
-  cargarProducto(producto: Producto){
+ 
+
+agregarProducto(producto: Producto) {
+  this.productoSeleccionado.emit(producto);
+}
+
+  /*agregarProducto(producto: Producto) {
+    this.data.productosSeleccionados.push(producto);
+  }*/
+
+  /*cargarProducto(producto: Producto){
     this.productoService.cargarProducto(producto);
-  }
+  }*/
 }

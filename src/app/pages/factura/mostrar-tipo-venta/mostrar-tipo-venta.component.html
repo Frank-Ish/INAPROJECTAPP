@@ -1,12 +1,12 @@
 <table mat-table [dataSource]= "dataSource" class="mat-elevation-z8">
 
-    <!-- Position Column -->
+    <!-- Id -->
     <ng-container matColumnDef="idTipoVenta">
       <th mat-header-cell *matHeaderCellDef> Código </th>
       <td mat-cell *matCellDef="let element"> {{element.idTipoVenta}} </td>
     </ng-container>
   
-    <!-- Name Column -->
+    <!-- Nombre -->
     <ng-container matColumnDef="nombre">
       <th mat-header-cell *matHeaderCellDef> Nombre </th>
       <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>

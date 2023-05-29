@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { TipoPagoForms } from 'src/app/shared/Utils/ProfileForms/tipoPagoProfile';
 import { TipoPago } from 'src/app/shared/models/tipoPago';
@@ -13,7 +14,12 @@ export class MostrarTipoPagoComponent {
   displayedColumns: string[] = ['idTipoPago', 'nombre', 'acciones'];
   dataSource = new MatTableDataSource();
 
-  constructor(private tipoPagoService: TipoPagosService, public tipoPagoForm: TipoPagoForms){
+
+  constructor(
+    private tipoPagoService: TipoPagosService, 
+    public tipoPagoForm: TipoPagoForms,
+    private dialogRef: MatDialogRef<MostrarTipoPagoComponent> 
+    ){
 
   }
 
@@ -29,6 +35,10 @@ export class MostrarTipoPagoComponent {
     }, (err)=>{
       console.log(err);
     });
+  }
+
+  agregarTipoPago(tipoPago: TipoPago){
+    this.dialogRef.close(tipoPago);
   }
 
   cargarTipoPago(tipoPago: TipoPago){

@@ -18,8 +18,8 @@ export class ClientesService {
   //Metodo para capturar los errores
   //Descompone el error para devolver al controlador el mensaje puro
   handlerError(error:any):Observable<never>{
-
     let errorMensaje = 'Error desconocido.'
+    console.log(error);
     return throwError(errorMensaje);
   }
 
@@ -42,7 +42,7 @@ export class ClientesService {
       tipoCliente: 0,
       descMax: 0,
       foto: '',
-      estado: false,
+      estado: true,
       nombre: '',
       apellido1: '',
       apellido2: '',

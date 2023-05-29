@@ -1,0 +1,19 @@
+<p>admin-tipo-cliente works!</p>
+<p>{{titulo}}</p>
+<div class="modal-form">
+    <form [formGroup]="tipoClientesForm.baseForm">
+        <mat-form-field appearance="fill" class="full-width-input">
+          <mat-label>ID Tipo Cliente</mat-label>
+          <input matInput type="text" formControlName="id">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>Tipo de Cliente</mat-label>
+            <input matInput type="text" formControlName="nombre">
+        </mat-form-field>
+          
+        <br> 
+        
+        <button mat-button color="accent" type="submit" (click)="guardar()" [mat-dialog-close]="true" [disabled]="!this.tipoClientesForm.baseForm.valid">Guardar</button> 
+        <button mat-button color="warn" [mat-dialog-close]="true" >Salir</button>      </form> 
+</div>

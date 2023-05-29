@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TipoVentaService } from '../../../shared/services/tipo-venta.service';
 import { TipoVentaForms } from 'src/app/shared/Utils/ProfileForms/tipoVentaProfile';
 import { TipoVenta } from 'src/app/shared/models/tipoVenta';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-mostrar-tipo-venta',
@@ -13,7 +14,11 @@ export class MostrarTipoVentaComponent {
   displayedColumns: string[] = ['idTipoVenta', 'nombre', 'acciones'];
   dataSource = new MatTableDataSource();
 
-  constructor(private tipoVentaService: TipoVentaService, public tipoVentaForm: TipoVentaForms){
+  constructor(
+    private tipoVentaService: TipoVentaService, 
+    public tipoVentaForm: TipoVentaForms,
+    private dialogRef: MatDialogRef<MostrarTipoVentaComponent> 
+    ){
 
   }
 
@@ -33,6 +38,9 @@ export class MostrarTipoVentaComponent {
   }
 
   cargarTipoVenta(tipoVenta: TipoVenta){
-    this.tipoVentaService.cargarTipoVenta(tipoVenta);
+    this.dialogRef.close(tipoVenta);
   }
+  /*cargarTipoVenta(tipoVenta: TipoVenta){
+    this.tipoVentaService.cargarTipoVenta(tipoVenta);
+  }*/
 }

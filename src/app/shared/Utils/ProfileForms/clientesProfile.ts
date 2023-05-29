@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({providedIn: 'root'})
 export class ClientesForms {
+    patchValue(arg0: { idCliente: any; nombre: any; apellido1: any; apellido2: any; }) {
+      throw new Error('Method not implemented.');
+    }
     baseForm: FormGroup; 
 
     constructor(private fb: FormBuilder) { 
@@ -23,4 +26,19 @@ export class ClientesForms {
     private getErrorMessage(field:string):void{
 
     }
+
+    reset(): void {
+        this.baseForm.reset({
+          cedula: '',
+          tipoCliente: 1,
+          descMax: '',
+          foto: '',
+          estado: true,
+          nombre: '',
+          apellido1: '',
+          apellido2: '',
+          fechaNac: '',
+          genero: 1
+        });
+      }
 }

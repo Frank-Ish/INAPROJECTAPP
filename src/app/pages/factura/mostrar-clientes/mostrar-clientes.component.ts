@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { ClientesForms } from 'src/app/shared/Utils/ProfileForms/clientesProfile';
@@ -12,12 +12,16 @@ import { ClientesService } from 'src/app/shared/services/clientes.service';
   styleUrls: ['./mostrar-clientes.component.css']
 })
 export class MostrarClientesComponent {
-  displayedColumns: string[] = ['cedula', 'nombre', 'apellido1', 'apellido2', 'acciones'];
+  displayedColumns: string[] = ['cedula', 'nombre', 'apellido1', 'apellido2', 'descMax', 'acciones'];
   dataSource = new MatTableDataSource();
   
-  constructor(private clienteService: ClientesService, public clienteForm:ClientesForms, private dialog:MatDialog, private msg: ToastrService){
-
-  }
+  constructor(
+    private clienteService: ClientesService, 
+    public clienteForm:ClientesForms,
+    //private dialog:MatDialog,
+    private dialogRef: MatDialogRef<MostrarClientesComponent>, 
+    private msg: ToastrService)
+    {}
 
   ngOnInit():void{
     this.cargarLista();
@@ -32,8 +36,12 @@ export class MostrarClientesComponent {
       console.log(err);
     });
   }
+
   cargarCliente(cliente: Cliente) {
-    this.clienteService.cargarCliente(cliente);
+    this.dialogRef.close(cliente);
   }
+  /*cargarCliente(cliente: Cliente) {
+    this.clienteService.cargarCliente(cliente);
+  }*/
 
 }

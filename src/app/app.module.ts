@@ -11,6 +11,8 @@ import { FacturaModule } from './pages/factura/factura.module';
 import { ProductosModule } from './pages/productos/productos.module';
 import { HeaderComponent } from './shared/component/header/header.component';
 import { NavComponent } from './shared/component/nav/nav.component';
+import { TipoClienteModule } from './pages/tipo-cliente/tipo-cliente.module';
+import { FacturacionModule } from './pages/facturacion/facturacion.module';
 
 
 @NgModule({
@@ -27,12 +29,14 @@ import { NavComponent } from './shared/component/nav/nav.component';
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-bottom-right',
+      timeOut: 3500,
+      positionClass: 'toast-bottom-center',
       preventDuplicates: true,
       }),
     FacturaModule,
     ProductosModule,
+    TipoClienteModule,
+    FacturacionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,121 @@
+<!--Inicio del cuerpo del componente-->
+<mat-card>
+  <!--Inicio formulario de clientes-->
+    <form [formGroup]="clienteForm.baseForm">
+      <mat-card-content>
+        <mat-card-title>Datos del Cliente</mat-card-title>
+        <mat-form-field appearance="fill" class="espacio">
+            <mat-label>Cédula</mat-label>
+            <input matInput placeholder="Cédula" formControlName="cedula">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre" formControlName="nombre">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+            <mat-label>Primer Apelligo</mat-label>
+            <input matInput placeholder="Primer Ap..." formControlName="apellido1">
+          </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+            <mat-label>Segundo Apelligo</mat-label>
+            <input matInput placeholder="Segundo Ap..." formControlName="apellido2">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="openModal()" type="button">Agregar Cliente</button>
+      </mat-card-content>
+    </form>
+    <!--Fin formulario de clientes-->
+
+    <!--Inicio formulario de producto-->
+    <form [formGroup]="facturaForm.baseForm">
+        <div formArrayName="tbDetalleFacturas">
+            <div *ngFor="let detalleFactura of facturaForm.tbDetalleFacturas.controls; let i = index" [formGroupName]="i">
+              <mat-card-content>
+                <mat-card-title>Datos del Producto {{i + 1}}</mat-card-title>
+                <mat-form-field appearance="fill" class="espacio">
+                  <mat-label>Código</mat-label>
+                  <input matInput placeholder="Código" formControlName="idProducto">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="espacio">
+                    <mat-label>Producto</mat-label>
+                    <input matInput placeholder="Nombre del Producto" formControlName="nombre">
+                  </mat-form-field>
+                  <mat-form-field appearance="fill" class="espacio">
+                    <mat-label>Precio</mat-label>
+                    <input matInput type="number" placeholder="Precio Unitario" formControlName="precio">
+                  </mat-form-field>
+                  <mat-form-field appearance="fill" class="espacio">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput type="number" placeholder="Cantidad" min="1" [max]="detalleFactura?.get('stock')?.value" formControlName="cantidad">
+                  </mat-form-field>
+                  <button mat-raised-button color="warn" (click)="eliminarProducto(i)" type="button">Eliminar</button>
+              </mat-card-content>
+            </div>
+          </div>
+    </form>
+    <button mat-button color="accent" (click)="openModal2()">Agregar Producto</button>
+    <!--Fin formulario de productos-->
+
+    <!--Inicio formulario de tipo de pago-->
+    <form [formGroup]="tipoPagoForm.baseForm">
+      <mat-card-content>
+        <mat-card-title>Tipo de Pago</mat-card-title>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>Código</mat-label>
+          <input matInput placeholder="Código" formControlName="idTipoPago">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>Tipo De Pago</mat-label>
+          <input matInput placeholder="Tipo de Pago" formControlName="nombre">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="openModal3()">Agregar Tipo de Pago</button>
+      </mat-card-content>
+    </form>
+    <!--Fin formulario de tipo de pagos-->
+
+    <!--Inicio formulario de tipo de venta-->
+    <form [formGroup]="tipoVentaForm.baseForm">
+      <mat-card-content>
+        <mat-card-title>Tipo de Venta</mat-card-title>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>Código</mat-label>
+          <input matInput placeholder="Código" formControlName="idTipoVenta">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>Tipo De Pago</mat-label>
+          <input matInput placeholder="tipo de Venta" formControlName="nombre">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="openModal4()">Agregar Tipo de Pago</button>
+      </mat-card-content>
+    </form>
+    <!--Fin formulario de tipo de venta-->
+
+    <!--Inicio del formulario de precios-->
+    <form [formGroup]="clienteForm.baseForm">
+      <mat-card-content>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>Sub-Total</mat-label>
+          <input matInput type="number" [value]="calcularSubTotal()" disabled name="subTotal">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>IVA</mat-label>
+          <input matInput type="number" [value]="calcularIVA()" disabled>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+        <mat-label>Descuento del Cliente</mat-label>
+          <input matInput type="number" [value]="descuento">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>Descuento</mat-label>
+          <input matInput type="number" [value]="calcularDescuentos()" disabled name="descuentos">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="espacio">
+          <mat-label>Total</mat-label>
+          <input matInput type="number" [value]="calcularTotal()" disabled name="total">
+        </mat-form-field>
+      </mat-card-content>
+    </form>
+    <!--fin del formulario de precios-->
+
+    <button mat-button color="accent" type="submit" (click)="guardar()">Guardar</button> 
+</mat-card>
+<!--Fin del cuerpo del componente-->  
